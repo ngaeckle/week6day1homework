@@ -1,13 +1,31 @@
 {% extends "base.jinja" %}
 
 {% block content %}
-    <h2>CDN 109</h2>
-    <h3>Instructors</h3>
-    {% for instructor in cdn['instructors'] %}
-        <span>{{ instructor }} </span>
-    {% endfor %}
-    <h3>Students</h3>
-    {% for student in cdn.students %}
-        <p>{{student}}</p>
-    {% endfor %}
+    <h2>Home Page</h2>
+    <form action="" method="post">
+        {{form.hidden_tag()}}
+        <p>
+            {{ form.make.label }}
+            {{ form.make(size=32) }}
+        </p>
+        <p>
+            {{ form.model.label }}
+            {{ form.model(size=32) }}
+        </p>
+        <p>
+            {{ form.year.label }}
+            {{ form.year(size=32) }}
+        </p>
+        <p>
+            {{ form.color.label }}
+            {{ form.color(size=32) }}
+        </p>
+        <p>
+            {{ form.price.label }}
+            {{ form.price(size=32) }}
+        </p>
+        <p>
+            {{ form.submit(class='btn btn-primary') }}
+        </p>
+    </form>
 {% endblock %}

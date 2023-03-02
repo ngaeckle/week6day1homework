@@ -17,7 +17,16 @@
 </head>
 <body class="container mt-1">
     {% include 'navbar.jinja' %}
-    <h1>FakeBook CDN</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages%}
+    <ul>
+        {%for message in messages%}
+            <li>{{message}}</li>
+        {%endfor%}
+    </ul>
+    {%endif%}
+    {%endwith%}
+    <h1>Homework</h1>
     {% block content %}
 
     {% endblock %}
