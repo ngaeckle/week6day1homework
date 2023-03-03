@@ -14,6 +14,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(120), nullable=True)
     first_name = db.Column(db.String(32), nullable=True)
     last_name = db.Column(db.String(32), nullable=True)
+    car_id = db.Column(db.Integer, db.ForeignKey('car.id'))
 
     def __repr__(self):
         return f'<User: {self.username}>'

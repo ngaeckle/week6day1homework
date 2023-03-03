@@ -2,9 +2,10 @@ from flask import render_template, flash, redirect
 from app import app
 from app.forms import CarForm, SignInForm, SignUpForm
 from app.models import User, Car
-from flask_login import current_user, login_user
+from flask_login import current_user, login_user, login_required, logout_user
 
 @app.route('/')
+@login_required
 def index():
     form = CarForm()
     if form.validate_on_submit():
@@ -13,9 +14,9 @@ def index():
         year = form.year.data
         color = form.color.data
         price = form.price.data
-        car = Car(make=make,model=model,year=year,color=color,price=price)
+        car = Car(make=make,model=model,year=year,color=color,price=price, user_id=current_user.id)
         car.commit()
-        flash(f'Car information logged successfully')
+        flash(f'Car information logged successfully to ')
     return render_template('index.jinja', title='Home', form=form)
 
 
@@ -60,10 +61,16 @@ def login():
             return redirect('/login')
 
         flash(f'Username: {username} already exists, try again')
-        #login_user(user_match)
+        login_user(user_match)
         return redirect('/')
     return render_template('login.jinja',title='Login', form=form)
 
 @app.route('/blog')
 def blog():
     return render_template('blog.jinja',title='Blog')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
